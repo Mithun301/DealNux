@@ -2,6 +2,7 @@ class searchFilterLocators{
   get searchInput(){
         return $("//input[@placeholder='Search products...']");
     }
+    
      get allProducts(){
         return $("//a[normalize-space()='Products']");
     }
@@ -76,6 +77,9 @@ class searchFilterLocators{
     }
     get selectcategory1(){
         return $("//span[text()='Wedding & Events']");
+    }
+    get compareButton(){
+        return $("//button[normalize-space()='Compare Prices']");
     }
 
 

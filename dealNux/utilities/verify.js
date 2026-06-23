@@ -102,7 +102,47 @@ async rndmProductClick() {
 //     expect(prices).toEqual(expectedPrices);
 // }
 
+async verifyProductName() {
+    const keyword = "headphones";
+    const products = await $$("//h3[contains(@class,'text-[13.5px]') and contains(@class,'line-clamp-2')]");
 
+// Verify products are displayed
+    expect(products.length).toBeGreaterThan(0);
+
+for (const product of products) {
+    const productName = (await product.getText()).trim();
+
+    // Verify product name is not empty
+    expect(productName).not.toBe('');
+
+    // Verify product name contains the keyword
+    expect(productName.toLowerCase())
+        .toContain(keyword.toLowerCase());
+}
+}
+ async priceCompare(){
+     const productPrices = await $$('//div[contains(@class,"space-y-3")]//span[contains(text(),"$")]');
+
+    let prices = [];
+
+    for (const price of productPrices) {
+        const text = await price.getText();
+        const value = parseFloat(text.replace(/[$,]/g, ''));
+        prices.push(value);
+    }
+
+    console.log("Prices:", prices);
+    const lowestPrice = Math.min(...prices);
+
+    const bestDealPrice = parseFloat(
+        (await $('//span[contains(@class, "text-[38px]") and contains(text(), "$")]').getText()) .replace(/[$,]/g, '') );
+
+    console.log("Lowest Price:", lowestPrice);
+    console.log("Best Deal Price:", bestDealPrice);
+
+    expect(bestDealPrice).toEqual(lowestPrice);
+
+ }
 
 
 }

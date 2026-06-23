@@ -5,28 +5,12 @@ const clientData = require('../../testData/clientData');
 const verify = require('../../utilities/verify');
 
 class SearchFilterActions {
-    async viewAllProducts(minPrice, maxPrice   ) {
-         await searchFilterLocators.homePage.click();
-     //   await searchFilterLocators.allProducts.click();
-        await browser.pause(2000);
-        // await searchFilterLocators.minPrice.setValue(priceData.price1.minPrice);
-        // await searchFilterLocators.maxPrice.click();
-        // await utility.clearValue();
-        // await searchFilterLocators.maxPrice.setValue(priceData.price1.maxPrice);
-        // await searchFilterLocators.filterText.click();
-        // await browser.pause(2000);
-        // await this.verifyPriceRange();
-        //await searchFilterLocators.categoryFilter1.click();
-      //  await searchFilterLocators.subCategoryFilter1.click();
-    //   await searchFilterLocators.categoryFilter2.click();
-    //   await searchFilterLocators.subCategoryFilter2.click();
-        await searchFilterLocators.selectcategory1.click();
-        await searchFilterLocators.priceFilter.click();
-        // await searchFilterLocators.lowestPriceFilter.click();
-        await searchFilterLocators.highestPriceFilter.click();
-        await browser.pause(2000);  
-        // await verify.verifyPriceLowToHigh();
-            await verify.verifyPriceHighToLow();
+    async searchProduct() {
+       await searchFilterLocators.homePage.click();
+        await searchFilterLocators.searchInput.setValue('laptop');
+        await browser.keys('Enter');
+        await browser.pause(5000);
+        // await verify.verifyProductName();
         await browser.pause(5000);
     }
     async productPurchase() {
@@ -82,6 +66,16 @@ class SearchFilterActions {
         await browser.pause(5000);
     
     }
+    async comparePrice() {
+    await searchFilterLocators.homePage.click();
+    await searchFilterLocators.viewAllProducts.click();
+    await browser.pause(4000);
+    await verify.rndmProductClick();
+    await browser.pause(2000);
+    await searchFilterLocators.compareButton.click();
+    await browser.pause(2000);
+    await verify.priceCompare();
+}
 
 
 }
